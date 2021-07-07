@@ -1,0 +1,15 @@
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\bin\Debug\net5.0\CustomerClassLibraryCore.Data.deps.json
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\bin\Debug\net5.0\CustomerClassLibraryCore.Data.dll
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\bin\Debug\net5.0\ref\CustomerClassLibraryCore.Data.dll
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\bin\Debug\net5.0\CustomerClassLibraryCore.Data.pdb
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\bin\Debug\net5.0\CustomerClassLibraryCore.dll
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\bin\Debug\net5.0\CustomerClassLibraryCore.pdb
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\obj\Debug\net5.0\CustomerClassLibraryCore.Data.csproj.AssemblyReference.cache
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\obj\Debug\net5.0\CustomerClassLibraryCore.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\obj\Debug\net5.0\CustomerClassLibraryCore.Data.AssemblyInfoInputs.cache
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\obj\Debug\net5.0\CustomerClassLibraryCore.Data.AssemblyInfo.cs
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\obj\Debug\net5.0\CustomerClassLibraryCore.Data.csproj.CoreCompileInputs.cache
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\obj\Debug\net5.0\CustomerClassLibraryCore.Data.csproj.CopyComplete
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\obj\Debug\net5.0\CustomerClassLibraryCore.Data.dll
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\obj\Debug\net5.0\ref\CustomerClassLibraryCore.Data.dll
+D:\projects\CustomerClassLibraryCore\src\CustomerClassLibraryCore.Data\obj\Debug\net5.0\CustomerClassLibraryCore.Data.pdb

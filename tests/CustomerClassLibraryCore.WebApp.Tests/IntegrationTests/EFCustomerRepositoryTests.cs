@@ -146,5 +146,21 @@ namespace CustomerClassLibraryCore.WebApp.Tests.IntegrationTests
             Assert.Null(deletedCustomer);
         }
 
+        [Fact]
+        public void ShouldBeAbleToDeleteCustomerById()
+        {
+            var customerRepository = new EFCustomerRepository();
+            var fixture = new EFCustomerRepositoryFixture();
+
+            var customer = fixture.CreateMockCustomer();
+            int customerId = customer.CustomerId;
+
+            customerRepository.Delete(customerId);
+
+            var deletedCustomer = customerRepository.Read(customerId);
+
+            Assert.Null(deletedCustomer);
+        }
+
     }
 }

@@ -36,20 +36,6 @@ namespace CustomerClassLibraryCore.Data.Repositories
             return customers;
         }
 
-        public void Delete(Customer entity)
-        {
-            var customer = _context.Customers.
-                                    Include("AdressesList").
-                                    Include("Note").
-                                    First(x => x.CustomerId == entity.CustomerId);
-
-            if (customer != null)
-            {
-                _context.Customers.Remove(customer);
-                _context.SaveChanges();
-            }
-        
-        }
 
         public void Update(Customer entity)
         {
@@ -64,6 +50,21 @@ namespace CustomerClassLibraryCore.Data.Repositories
             _context.SaveChanges();
         }
 
+        public void Delete(Customer entity)
+        {
+            var customer = _context.Customers.
+                                    Include("AdressesList").
+                                    Include("Note").
+                                    First(x => x.CustomerId == entity.CustomerId);
+
+            if (customer != null)
+            {
+                _context.Customers.Remove(customer);
+                _context.SaveChanges();
+            }
+
+        }
+
         public void DeleteAll()
         {
             var customers = _context.Customers.Include("AdressesList").Include("Note").ToList();
@@ -76,12 +77,13 @@ namespace CustomerClassLibraryCore.Data.Repositories
             _context.SaveChanges();
         }
 
-        //-----------------------------------------------------------------------------------------------------//
-        
         public void Delete(int entityId)
         {
-            throw new NotImplementedException();
+            _context.Customers.Remove(_context.Customers.Find(entityId));
+            _context.SaveChanges();
         }
+
+        //-----------------------------------------------------------------------------------------------------//
 
         public int GetAmountOfRows()
         {

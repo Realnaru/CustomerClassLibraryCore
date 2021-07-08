@@ -13,7 +13,6 @@ namespace CustomerClassLibraryCore.WebApp.Tests.IntegrationTests
         public Customer CreateMockCustomer()
         {
             var customerRepository = new EFCustomerRepository();
-            //customerRepository.DeleteAll();
             var customer = MockCustomer();
 
             customerRepository.Create(customer);

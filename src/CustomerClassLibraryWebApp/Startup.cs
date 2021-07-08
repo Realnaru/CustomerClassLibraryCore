@@ -1,4 +1,5 @@
 using CustomerClassLibraryCore;
+using CustomerClassLibraryCore.BusinessEntities;
 using CustomerClassLibraryCore.Data.Repositories;
 using CustomerClassLibraryCore.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using CustomerClassLibraryCore.Data.EFData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,9 @@ namespace CustomerClassLibraryWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IEntityRepository<Customer>, EFCustomerRepository>();
+            services.AddTransient<IEntityRepository<Address>, EFAddressRepository>();
+            services.AddTransient<IEntityRepository<CustomerNote>, EFNoteRepository>();
+
 
             //services.AddLogging();
             services.AddControllers();

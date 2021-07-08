@@ -106,6 +106,8 @@ namespace CustomerClassLibraryCore.WebApp.Tests.IntegrationTests
             var customerRepository = new EFCustomerRepository();
             var fixture = new EFCustomerRepositoryFixture();
 
+            customerRepository.DeleteAll();
+
             var customer = fixture.CreateMockCustomer();
             int customerId = customer.CustomerId;
           
@@ -134,6 +136,8 @@ namespace CustomerClassLibraryCore.WebApp.Tests.IntegrationTests
             var customerRepository = new EFCustomerRepository();
             var fixture = new EFCustomerRepositoryFixture();
 
+            customerRepository.DeleteAll();
+
             var customer = fixture.CreateMockCustomer();
             int customerId = customer.CustomerId;
 
@@ -151,6 +155,8 @@ namespace CustomerClassLibraryCore.WebApp.Tests.IntegrationTests
         {
             var customerRepository = new EFCustomerRepository();
             var fixture = new EFCustomerRepositoryFixture();
+
+            customerRepository.DeleteAll();
 
             var customer = fixture.CreateMockCustomer();
             int customerId = customer.CustomerId;

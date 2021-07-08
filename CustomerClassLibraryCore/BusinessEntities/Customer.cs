@@ -8,10 +8,10 @@ using CustomerClassLibraryCore.Common;
 
 namespace CustomerClassLibraryCore
 {
-    [Table("dbo.customer")]
+    [Table("customer")]
     public class Customer : Person
     {
-        [Key, System.ComponentModel.DataAnnotations.Schema.Column("customer_id")]
+        [Key, Column("customer_id")]
         public int CustomerId { get; set; }
 
         [Required(ErrorMessage = "The field is required"),

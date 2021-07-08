@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CustomerClassLibraryCore.BusinessEntities
 {
-    [Serializable, Table("dbo.customer_note")]
+    [Serializable, Table("customer_note")]
     public class CustomerNote
     {
         [Key, Column("note_id")]

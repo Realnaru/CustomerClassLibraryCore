@@ -1,4 +1,6 @@
-﻿using CustomerClassLibraryCore.Repositories;
+﻿using CustomerClassLibraryCore.Data.EFData;
+using CustomerClassLibraryCore.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,32 +11,79 @@ namespace CustomerClassLibraryCore.Data.Repositories
 {
     public class EFCustomerRepository : IEntityRepository<Customer>
     {
+        private CustomerDataContext _context;
+
+        public EFCustomerRepository()
+        {
+            _context = new CustomerDataContext();
+        }
         public int Create(Customer entity)
         {
-            throw new NotImplementedException();
+            _context.Customers.Add(entity);
+            _context.SaveChanges();
+
+            return entity.CustomerId;
+        }
+
+        public Customer Read(int entityId)
+        {
+            return _context.Customers.Find(entityId);
+        }
+
+        public List<Customer> ReadAll()
+        {
+            List<Customer> customers = _context.Customers.ToList();
+            return customers;
         }
 
         public void Delete(Customer entity)
         {
-            throw new NotImplementedException();
+            var customer = _context.Customers.
+                                    Include("AdressesList").
+                                    Include("Note").
+                                    First(x => x.CustomerId == entity.CustomerId);
+
+            if (customer != null)
+            {
+                _context.Customers.Remove(customer);
+                _context.SaveChanges();
+            }
+        
         }
 
+        public void Update(Customer entity)
+        {
+            var customer = _context.Customers.Find(entity.CustomerId);
+
+            if (customer == null)
+            {
+                return;
+            }
+
+            _context.Entry(customer).CurrentValues.SetValues(entity);
+            _context.SaveChanges();
+        }
+
+        public void DeleteAll()
+        {
+            var customers = _context.Customers.Include("AdressesList").Include("Note").ToList();
+
+            foreach (var customer in customers)
+            {
+                _context.Customers.Remove(customer);
+            }
+
+            _context.SaveChanges();
+        }
+
+        //-----------------------------------------------------------------------------------------------------//
+        
         public void Delete(int entityId)
         {
             throw new NotImplementedException();
         }
 
         public int GetAmountOfRows()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Customer Read(int entityId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Customer> ReadAll()
         {
             throw new NotImplementedException();
         }
@@ -47,11 +96,6 @@ namespace CustomerClassLibraryCore.Data.Repositories
         public List<Customer> ReadPartially(int pageNumber, int rowsCount)
         {
             throw new NotImplementedException();
-        }
-
-        public void Update(Customer entity)
-        {
-            throw new NotImplementedException();
-        }
+        }      
     }
 }

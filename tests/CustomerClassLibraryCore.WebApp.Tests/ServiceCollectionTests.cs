@@ -13,7 +13,14 @@ namespace CustomerClassLibraryCore.WebApp.Tests
         {
             var serviceCollection = new ServiceCollection();
 
-            //serviceCollection.AddTransient<IEntityRepository<Customer>, EFCustomerRepository>();
+            serviceCollection.AddTransient<IEntityRepository<Customer>, EFCustomerRepository>();
+
+            var provider = serviceCollection.BuildServiceProvider();
+            var customerRepository = provider.GetService<IEntityRepository<Customer>>();
+
+            Assert.IsAssignableFrom<IEntityRepository<Customer>>(customerRepository);
         }
+
+
     }
 }

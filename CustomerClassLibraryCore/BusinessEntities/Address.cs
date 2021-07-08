@@ -13,7 +13,7 @@ namespace CustomerClassLibraryCore.BusinessEntities
         Billing
     }
 
-    [Serializable, Table("dbo.customer_address")]
+    [Serializable, Table("customer_address")]
     public class Address
     {
         [Key, Column("address_id")]

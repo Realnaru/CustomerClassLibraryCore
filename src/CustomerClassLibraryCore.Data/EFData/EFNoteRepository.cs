@@ -10,27 +10,45 @@ namespace CustomerClassLibraryCore.Data.EFData
 {
     public class EFNoteRepository : IEntityRepository<CustomerNote>
     {
+        private CustomerDataContext _context;
+
+        public EFNoteRepository()
+        {
+            _context = new CustomerDataContext();
+        }
         public int Create(CustomerNote entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(CustomerNote entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(int entityId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int GetAmountOfRows()
-        {
-            throw new NotImplementedException();
+            _context.Add(entity);
+            _context.SaveChanges();
+            return entity.NoteId;
         }
 
         public CustomerNote Read(int entityId)
+        {
+            return _context.Note.Find(entityId);
+
+        }
+
+        public void Update(CustomerNote entity)
+        {
+            var note = _context.Note.Find(entity.NoteId);
+            if (note == null)
+            {
+                return;
+            }
+            _context.Entry(note).CurrentValues.SetValues(entity);
+            _context.SaveChanges();
+        }    
+
+        public void Delete(int entityId)
+        {
+            _context.Remove(_context.Note.Find(entityId));
+            _context.SaveChanges();
+        }
+
+        //----------------------------------------------------------------------------------//
+
+        public int GetAmountOfRows()
         {
             throw new NotImplementedException();
         }
@@ -49,10 +67,11 @@ namespace CustomerClassLibraryCore.Data.EFData
         {
             throw new NotImplementedException();
         }
-
-        public void Update(CustomerNote entity)
+        public void Delete(CustomerNote entity)
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

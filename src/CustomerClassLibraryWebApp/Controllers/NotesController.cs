@@ -1,5 +1,5 @@
 ﻿using CustomerClassLibraryCore.BusinessEntities;
-using CustomerClassLibraryCore.Repositories;
+using CustomerClassLibraryCore.Data.EFData;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,46 +12,45 @@ namespace CustomerClassLibraryWebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AddressesController : ControllerBase
+    public class NotesController : ControllerBase
     {
-        private readonly IEntityRepository<Address> _addressRepository;
+        private EFNoteRepository _noteRepository;
 
-        public AddressesController(IEntityRepository<Address> addressRepository)
+        public NotesController()
         {
-            _addressRepository = addressRepository;
+            _noteRepository = new EFNoteRepository();
         }
-
-        // GET: api/<AddressesController>
+        // GET: api/<NotesController>
         [HttpGet]
-        public IEnumerable<Address> Get()
+        public IEnumerable<CustomerNote> Get()
         {
-            return _addressRepository.ReadAll();
+            return _noteRepository.ReadAll();
         }
 
-        // GET api/<AddressesController>/5
+        // GET api/<NotesController>/5
         [HttpGet("{id}")]
-        public Address Get(int id)
+        public CustomerNote Get(int id)
         {
-            return _addressRepository.Read(id);
+            return _noteRepository.Read(id);
         }
 
-        // POST api/<AddressesController>
+        // POST api/<NotesController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<AddressesController>/5
+        // PUT api/<NotesController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<AddressesController>/5
+        // DELETE api/<NotesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _addressRepository.Delete(id);
+            _noteRepository.Delete(id);
         }
     }
 }

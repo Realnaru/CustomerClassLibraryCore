@@ -30,9 +30,9 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // GET api/<CustomersController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Customer Get(int id)
         {
-            return "value";
+            return _customerRepository.Read(id);
         }
 
         // POST api/<CustomersController>
@@ -51,6 +51,7 @@ namespace CustomerClassLibraryWebApp.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _customerRepository.Delete(id);
         }
     }
 }

@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Doc\\projects\\CustomerClassLibraryCore\\tests\\CustomerClassLibraryCore.WebApp.Tests\\CustomerClassLibraryCore.WebApp.Tests.csproj": {}
+    "D:\\projects\\CustomerClassLibraryCore\\tests\\CustomerClassLibraryCore.WebApp.Tests\\CustomerClassLibraryCore.WebApp.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Doc\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj": {
+    "D:\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Doc\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj",
+        "projectUniqueName": "D:\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj",
         "projectName": "CustomerClassLibraryCore",
-        "projectPath": "C:\\Doc\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj",
-        "packagesPath": "C:\\Users\\opishnyak_ry\\.nuget\\packages\\",
-        "outputPath": "C:\\Doc\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\obj\\",
+        "projectPath": "D:\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\opishnyak_ry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,21 +65,25 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Doc\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryCore.Data\\CustomerClassLibraryCore.Data.csproj": {
+    "D:\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryCore.Data\\CustomerClassLibraryCore.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Doc\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryCore.Data\\CustomerClassLibraryCore.Data.csproj",
+        "projectUniqueName": "D:\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryCore.Data\\CustomerClassLibraryCore.Data.csproj",
         "projectName": "CustomerClassLibraryCore.Data",
-        "projectPath": "C:\\Doc\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryCore.Data\\CustomerClassLibraryCore.Data.csproj",
-        "packagesPath": "C:\\Users\\opishnyak_ry\\.nuget\\packages\\",
-        "outputPath": "C:\\Doc\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryCore.Data\\obj\\",
+        "projectPath": "D:\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryCore.Data\\CustomerClassLibraryCore.Data.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryCore.Data\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\opishnyak_ry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -89,8 +97,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Doc\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj": {
-                "projectPath": "C:\\Doc\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj"
+              "D:\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj": {
+                "projectPath": "D:\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj"
               }
             }
           }
@@ -129,21 +137,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Doc\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryWebApp\\CustomerClassLibraryWebApp.csproj": {
+    "D:\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryWebApp\\CustomerClassLibraryWebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Doc\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryWebApp\\CustomerClassLibraryWebApp.csproj",
+        "projectUniqueName": "D:\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryWebApp\\CustomerClassLibraryWebApp.csproj",
         "projectName": "CustomerClassLibraryWebApp",
-        "projectPath": "C:\\Doc\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryWebApp\\CustomerClassLibraryWebApp.csproj",
-        "packagesPath": "C:\\Users\\opishnyak_ry\\.nuget\\packages\\",
-        "outputPath": "C:\\Doc\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryWebApp\\obj\\",
+        "projectPath": "D:\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryWebApp\\CustomerClassLibraryWebApp.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryWebApp\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\opishnyak_ry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -157,11 +169,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Doc\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj": {
-                "projectPath": "C:\\Doc\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj"
+              "D:\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj": {
+                "projectPath": "D:\\projects\\CustomerClassLibraryCore\\CustomerClassLibraryCore\\CustomerClassLibraryCore.csproj"
               },
-              "C:\\Doc\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryCore.Data\\CustomerClassLibraryCore.Data.csproj": {
-                "projectPath": "C:\\Doc\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryCore.Data\\CustomerClassLibraryCore.Data.csproj"
+              "D:\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryCore.Data\\CustomerClassLibraryCore.Data.csproj": {
+                "projectPath": "D:\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryCore.Data\\CustomerClassLibraryCore.Data.csproj"
               }
             }
           }
@@ -203,21 +215,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Doc\\projects\\CustomerClassLibraryCore\\tests\\CustomerClassLibraryCore.WebApp.Tests\\CustomerClassLibraryCore.WebApp.Tests.csproj": {
+    "D:\\projects\\CustomerClassLibraryCore\\tests\\CustomerClassLibraryCore.WebApp.Tests\\CustomerClassLibraryCore.WebApp.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Doc\\projects\\CustomerClassLibraryCore\\tests\\CustomerClassLibraryCore.WebApp.Tests\\CustomerClassLibraryCore.WebApp.Tests.csproj",
+        "projectUniqueName": "D:\\projects\\CustomerClassLibraryCore\\tests\\CustomerClassLibraryCore.WebApp.Tests\\CustomerClassLibraryCore.WebApp.Tests.csproj",
         "projectName": "CustomerClassLibraryCore.WebApp.Tests",
-        "projectPath": "C:\\Doc\\projects\\CustomerClassLibraryCore\\tests\\CustomerClassLibraryCore.WebApp.Tests\\CustomerClassLibraryCore.WebApp.Tests.csproj",
-        "packagesPath": "C:\\Users\\opishnyak_ry\\.nuget\\packages\\",
-        "outputPath": "C:\\Doc\\projects\\CustomerClassLibraryCore\\tests\\CustomerClassLibraryCore.WebApp.Tests\\obj\\",
+        "projectPath": "D:\\projects\\CustomerClassLibraryCore\\tests\\CustomerClassLibraryCore.WebApp.Tests\\CustomerClassLibraryCore.WebApp.Tests.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\projects\\CustomerClassLibraryCore\\tests\\CustomerClassLibraryCore.WebApp.Tests\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\opishnyak_ry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -231,8 +247,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Doc\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryWebApp\\CustomerClassLibraryWebApp.csproj": {
-                "projectPath": "C:\\Doc\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryWebApp\\CustomerClassLibraryWebApp.csproj"
+              "D:\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryWebApp\\CustomerClassLibraryWebApp.csproj": {
+                "projectPath": "D:\\projects\\CustomerClassLibraryCore\\src\\CustomerClassLibraryWebApp\\CustomerClassLibraryWebApp.csproj"
               }
             }
           }
@@ -283,14 +299,11 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -20,7 +20,5 @@ namespace CustomerClassLibraryCore.WebApp.Tests
 
             Assert.IsAssignableFrom<IEntityRepository<Customer>>(customerRepository);
         }
-
-
     }
 }

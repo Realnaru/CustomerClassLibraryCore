@@ -1,4 +1,7 @@
-﻿using CustomerClassLibraryCore.BusinessEntities;
+﻿using CustomerClassLibraryCore;
+using CustomerClassLibraryCore.BusinessEntities;
+using CustomerClassLibraryCore.Data.EFData;
+using CustomerClassLibraryCore.Data.Repositories;
 using CustomerClassLibraryCore.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,10 +17,17 @@ namespace CustomerClassLibraryWebApp.Controllers
     [ApiController]
     public class AddressesController : ControllerBase
     {
+        private readonly IEntityRepository<Customer> _customerRepository;
         private readonly IEntityRepository<Address> _addressRepository;
 
-        public AddressesController(IEntityRepository<Address> addressRepository)
+        public AddressesController()
         {
+            _customerRepository = new EFCustomerRepository();
+            _addressRepository = new EFAddressRepository();
+        }
+        public AddressesController(IEntityRepository<Address> addressRepository, IEntityRepository<Customer> customerRepository)
+        {
+            _customerRepository = customerRepository;
             _addressRepository = addressRepository;
         }
 
@@ -26,6 +36,12 @@ namespace CustomerClassLibraryWebApp.Controllers
         public IEnumerable<Address> Get()
         {
             return _addressRepository.ReadAll();
+        }
+
+        [HttpGet]
+        public IEnumerable<Address> GetAll(int id)
+        {
+            return _addressRepository.ReadAll(id);
         }
 
         // GET api/<AddressesController>/5
@@ -37,21 +53,33 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // POST api/<AddressesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Address address)
         {
+            if (_customerRepository.Read(address.CustomerId) != null)
+            {
+                _addressRepository.Create(address);
+            }           
         }
 
         // PUT api/<AddressesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Address address)
         {
+            if (_addressRepository.Read(id) != null)
+            {
+                _addressRepository.Update(address);
+            }
         }
 
         // DELETE api/<AddressesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _addressRepository.Delete(id);
+            if (_addressRepository.Read(id) != null)
+            {
+                _addressRepository.Delete(id);
+            }
+            
         }
     }
 }

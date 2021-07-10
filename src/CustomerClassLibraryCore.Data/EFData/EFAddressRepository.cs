@@ -35,6 +35,11 @@ namespace CustomerClassLibraryCore.Data.EFData
             return _context.AdressesList.ToList();
         }
 
+        public List<Address> ReadAll(int entityId)
+        {
+            return _context.AdressesList.Where(x => x.CustomerId == entityId).ToList();
+        }
+
         public void Update(Address entity)
         {
             var address = _context.AdressesList.Find(entity.AddressId);
@@ -63,11 +68,6 @@ namespace CustomerClassLibraryCore.Data.EFData
         }
 
         public int GetAmountOfRows()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Address> ReadAll(int entityId)
         {
             throw new NotImplementedException();
         }

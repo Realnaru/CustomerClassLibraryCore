@@ -17,6 +17,11 @@ namespace CustomerClassLibraryWebApp.Controllers
     {
         private readonly IEntityRepository<Customer> _customerRepository;
 
+        public CustomersController()
+        {
+            _customerRepository = new EFCustomerRepository();
+        }
+
         public CustomersController(IEntityRepository<Customer> customerRepository)
         {
             _customerRepository = customerRepository;
@@ -37,21 +42,34 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // POST api/<CustomersController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Customer customer)
         {
+            _customerRepository.Create(customer);
         }
 
         // PUT api/<CustomersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Customer customer)
         {
+            var customerToUpdate = _customerRepository.Read(id);
+
+            if (customerToUpdate != null)
+            {
+                _customerRepository.Update(customer);
+            }
         }
 
         // DELETE api/<CustomersController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _customerRepository.Delete(id);
+            var customer = _customerRepository.Read(id);
+
+            if (customer != null)
+            {
+                _customerRepository.Delete(id);
+            }
+            
         }
     }
 }

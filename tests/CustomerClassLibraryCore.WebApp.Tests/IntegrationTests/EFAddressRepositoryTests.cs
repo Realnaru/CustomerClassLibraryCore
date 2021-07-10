@@ -107,6 +107,34 @@ namespace CustomerClassLibraryCore.WebApp.Tests.IntegrationTests
         }
 
         [Fact]
+        public void ShouldBeAbleToReadAllAddressesByCustomerId()
+        {
+            var addressRepository = new EFAddressRepository();
+            var customerRepository = new EFCustomerRepository();
+
+            var fixtureCustomer = new EFCustomerRepositoryFixture();
+            var fixtureAddress = new EFAddressRepositoryFixture();
+
+            customerRepository.DeleteAll();
+
+            var customer = fixtureCustomer.CreateMockCustomer();
+            var initialAddrress = customer.AdressesList[0];
+            var address = fixtureAddress.MockAddress();
+            var secondAddress = fixtureAddress.MockAddress();
+
+
+            int customerId = customer.CustomerId;
+            address.CustomerId = customerId;
+            secondAddress.CustomerId = customerId;
+            int addressId = addressRepository.Create(address);
+            int secondAddressId = addressRepository.Create(secondAddress);
+
+            var addresses = addressRepository.ReadAll(customerId);
+
+            Assert.Equal(3, addresses.Count);
+        }
+
+        [Fact]
         public void ShouldBeAbleToUpdateAddress()
         {
             var customerRepository = new EFCustomerRepository();

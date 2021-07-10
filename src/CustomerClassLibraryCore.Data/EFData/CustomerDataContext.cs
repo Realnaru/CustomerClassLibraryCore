@@ -19,7 +19,7 @@ namespace CustomerClassLibraryCore.Data.EFData
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=GUS1WS-00202\\SQLEXPRESS;Database=customer_lib_Opishniak_R;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=WIN-QTLFNRNOL1C\\SQL2019;Database=customer_lib_Opishniak_R;Trusted_Connection=True;");
             //"Server=GUS1WS-00202\\SQLEXPRESS;"
             //Server=WIN-QTLFNRNOL1C\\SQL2019
         }

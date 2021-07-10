@@ -29,6 +29,11 @@ namespace CustomerClassLibraryCore.Data.EFData
 
         }
 
+        public List<CustomerNote> ReadAll()
+        {
+            return _context.Note.ToList();
+        }
+
         public void Update(CustomerNote entity)
         {
             var note = _context.Note.Find(entity.NoteId);
@@ -49,11 +54,6 @@ namespace CustomerClassLibraryCore.Data.EFData
         //----------------------------------------------------------------------------------//
 
         public int GetAmountOfRows()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<CustomerNote> ReadAll()
         {
             throw new NotImplementedException();
         }

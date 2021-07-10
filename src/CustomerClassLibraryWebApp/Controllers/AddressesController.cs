@@ -20,11 +20,6 @@ namespace CustomerClassLibraryWebApp.Controllers
         private readonly IEntityRepository<Customer> _customerRepository;
         private readonly IEntityRepository<Address> _addressRepository;
 
-        public AddressesController()
-        {
-            _customerRepository = new EFCustomerRepository();
-            _addressRepository = new EFAddressRepository();
-        }
         public AddressesController(IEntityRepository<Address> addressRepository, IEntityRepository<Customer> customerRepository)
         {
             _customerRepository = customerRepository;
@@ -38,10 +33,11 @@ namespace CustomerClassLibraryWebApp.Controllers
             return _addressRepository.ReadAll();
         }
 
-        [HttpGet]
-        public IEnumerable<Address> GetAll(int id)
+        // GET api/<AddressesController>/?customerId=5
+        [HttpGet("{customerId}")]
+        public IEnumerable<Address> GetAll(int customerId)
         {
-            return _addressRepository.ReadAll(id);
+            return _addressRepository.ReadAll(customerId);
         }
 
         // GET api/<AddressesController>/5

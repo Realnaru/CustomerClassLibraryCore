@@ -1,7 +1,6 @@
 D:\projects\CustomerClassLibraryCore\CustomerClassLibraryCore\bin\Debug\netstandard2.0\CustomerClassLibraryCore.deps.json
 D:\projects\CustomerClassLibraryCore\CustomerClassLibraryCore\bin\Debug\netstandard2.0\CustomerClassLibraryCore.dll
 D:\projects\CustomerClassLibraryCore\CustomerClassLibraryCore\bin\Debug\netstandard2.0\CustomerClassLibraryCore.pdb
-D:\projects\CustomerClassLibraryCore\CustomerClassLibraryCore\obj\Debug\netstandard2.0\CustomerClassLibraryCore.csproj.AssemblyReference.cache
 D:\projects\CustomerClassLibraryCore\CustomerClassLibraryCore\obj\Debug\netstandard2.0\CustomerClassLibraryCore.AssemblyInfoInputs.cache
 D:\projects\CustomerClassLibraryCore\CustomerClassLibraryCore\obj\Debug\netstandard2.0\CustomerClassLibraryCore.AssemblyInfo.cs
 D:\projects\CustomerClassLibraryCore\CustomerClassLibraryCore\obj\Debug\netstandard2.0\CustomerClassLibraryCore.csproj.CoreCompileInputs.cache

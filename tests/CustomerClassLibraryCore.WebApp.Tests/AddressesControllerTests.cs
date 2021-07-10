@@ -1,4 +1,6 @@
 ﻿using CustomerClassLibraryCore.BusinessEntities;
+using CustomerClassLibraryCore.Data.EFData;
+using CustomerClassLibraryCore.Data.Repositories;
 using CustomerClassLibraryCore.Repositories;
 using CustomerClassLibraryCore.WebApp.Tests.IntegrationTests;
 using CustomerClassLibraryWebApp.Controllers;
@@ -17,7 +19,7 @@ namespace CustomerClassLibraryCore.WebApp.Tests
         [Fact]
         public void ShouldBeAbleToCreateAddressesController()
         {
-            var controler = new AddressesController();
+            var controler = new AddressesController(new EFAddressRepository(), new EFCustomerRepository());
             Assert.NotNull(controler);
         }
 

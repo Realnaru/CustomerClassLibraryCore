@@ -17,11 +17,6 @@ namespace CustomerClassLibraryWebApp.Controllers
     {
         private readonly IEntityRepository<Customer> _customerRepository;
 
-        public CustomersController()
-        {
-            _customerRepository = new EFCustomerRepository();
-        }
-
         public CustomersController(IEntityRepository<Customer> customerRepository)
         {
             _customerRepository = customerRepository;

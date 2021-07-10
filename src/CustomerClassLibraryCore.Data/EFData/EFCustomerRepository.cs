@@ -20,6 +20,15 @@ namespace CustomerClassLibraryCore.Data.Repositories
         public int Create(Customer entity)
         {
             _context.Customers.Add(entity);
+            foreach(var address in entity.AdressesList)
+            {
+                _context.AdressesList.Add(address);
+            }
+            foreach(var note in entity.Note)
+            {
+                _context.Add(note);
+            }
+
             _context.SaveChanges();
 
             return entity.CustomerId;

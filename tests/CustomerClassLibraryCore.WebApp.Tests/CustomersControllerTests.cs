@@ -1,4 +1,5 @@
-﻿using CustomerClassLibraryCore.Repositories;
+﻿using CustomerClassLibraryCore.Data.Repositories;
+using CustomerClassLibraryCore.Repositories;
 using CustomerClassLibraryCore.WebApp.Tests.IntegrationTests;
 using CustomerClassLibraryWebApp.Controllers;
 using Moq;
@@ -16,7 +17,7 @@ namespace CustomerClassLibraryCore.WebApp.Tests
         [Fact]
         public void ShouldBeAbleToCreateCustomersController()
         {
-            var customersController = new CustomersController();
+            var customersController = new CustomersController(new EFCustomerRepository());
             Assert.NotNull(customersController);
         }
 

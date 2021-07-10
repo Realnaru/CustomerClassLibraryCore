@@ -65,6 +65,38 @@ namespace CustomerClassLibraryCore.WebApp.Tests.IntegrationTests
             Assert.Equal("Kitty ipsum dolor sit amet, shed everywhere shed everywhere", createdNote.Note);
         }
 
+
+        [Fact]
+        public void ShouldbeAbleToReadAllCustomerNotes()
+        {
+            var customerNoteRepository = new EFNoteRepository();
+            var customerRepository = new EFCustomerRepository();
+            var fixture = new EFCustomerRepositoryFixture();
+
+            customerRepository.DeleteAll();
+
+            var customerNote = new CustomerNote();
+            var secondCustomerNote = new CustomerNote();
+
+            var customer = fixture.CreateMockCustomer();
+            int customerId = customer.CustomerId;
+
+            customerNote.CustomerId = customerId;
+            customerNote.Note = "Kitty ipsum dolor sit amet, shed everywhere shed everywhere";
+
+            secondCustomerNote.CustomerId = customerId;
+            secondCustomerNote.Note = "Kitty Ipsum";
+
+            customerNoteRepository.Create(customerNote);
+            customerNoteRepository.Create(secondCustomerNote);
+
+
+            var notes = customerNoteRepository.ReadAll();
+
+            Assert.NotNull(notes);
+            Assert.Equal(3, notes.Count);
+        }
+
         [Fact]
         public void ShouldbeAbleToUpdateCustomerNote()
         {

@@ -20,12 +20,6 @@ namespace CustomerClassLibraryWebApp.Controllers
         private IEntityRepository<Customer> _customerRepository;
         private IEntityRepository<CustomerNote> _noteRepository;
 
-        public NotesController()
-        {
-            _customerRepository = new EFCustomerRepository();
-            _noteRepository = new EFNoteRepository();
-        }
-
         public NotesController(IEntityRepository<Customer> customerRepository, IEntityRepository<CustomerNote> noteRepository)
         {
             _customerRepository = customerRepository;
@@ -39,11 +33,11 @@ namespace CustomerClassLibraryWebApp.Controllers
             return _noteRepository.ReadAll();
         }
 
-        // GET: api/<NotesController>
-        [HttpGet]
-        public IEnumerable<CustomerNote> GetAll(int id)
+        // GET api/<NotesController>?customerId=10
+        [HttpGet("{customerId}")]
+        public IEnumerable<CustomerNote> GetAll(int customerId)
         {
-            return _noteRepository.ReadAll(id);
+            return _noteRepository.ReadAll(customerId);
         }
 
         // GET api/<NotesController>/5

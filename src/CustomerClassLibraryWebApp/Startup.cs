@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CustomerClassLibraryWebApp.Filters;
 
 namespace CustomerClassLibraryWebApp
 {
@@ -37,6 +38,10 @@ namespace CustomerClassLibraryWebApp
 
 
             //services.AddLogging();
+            services.AddControllers((options) =>
+            {
+                options.Filters.Add(new ExceptionFilter());
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -1,5 +1,6 @@
 ﻿using CustomerClassLibraryCore;
 using CustomerClassLibraryCore.BusinessEntities;
+using CustomerClassLibraryCore.Common;
 using CustomerClassLibraryCore.Data.EFData;
 using CustomerClassLibraryCore.Data.Repositories;
 using CustomerClassLibraryCore.Repositories;
@@ -26,35 +27,61 @@ namespace CustomerClassLibraryWebApp.Controllers
             _addressRepository = addressRepository;
         }
 
-        // GET: api/<AddressesController>
-        [HttpGet]
-        public IEnumerable<Address> Get()
-        {
-            return _addressRepository.ReadAll();
-        }
+        //// GET: api/<AddressesController>
+        //[HttpGet]
+        //public ActionResult Get()
+        //{
+        //    var addresses = _addressRepository.ReadAll();
+        //    if (addresses != null)
+        //    {
+        //        return Ok(addresses);
+        //    } else
+        //    {
+        //        throw new Exception("Server error");
+        //    }   
+        //}
 
         // GET api/<AddressesController>/?customerId=5
-        [HttpGet("{customerId}")]
-        public IEnumerable<Address> GetAll(int customerId)
+        [HttpGet]
+        public ActionResult GetAll(int customerId)
         {
-            return _addressRepository.ReadAll(customerId);
+            var addresses = _addressRepository.ReadAll(customerId);
+            if (addresses.Count != 0)
+            {
+                return Ok(addresses);
+            } else
+            {
+                throw new NotFoundException($"Customer with id {customerId} not found");
+            }         
         }
 
         // GET api/<AddressesController>/5
         [HttpGet("{id}")]
-        public Address Get(int id)
+        public ActionResult Get(int id)
         {
-            return _addressRepository.Read(id);
+            var address = _addressRepository.Read(id);
+
+            if (address != null)
+            {
+                return Ok(address);
+            } else
+            {
+                throw new NotFoundException($"Address with {id} not found");
+            }        
         }
 
         // POST api/<AddressesController>
         [HttpPost]
         public void Post([FromBody] Address address)
         {
-            if (_customerRepository.Read(address.CustomerId) != null)
+            var customerId = _customerRepository.Read(address.CustomerId);
+            if ( customerId != null)
             {
                 _addressRepository.Create(address);
-            }           
+            } else
+            {
+                throw new NotFoundException($"Customer with {customerId} not found");
+            }         
         }
 
         // PUT api/<AddressesController>/5
@@ -64,6 +91,9 @@ namespace CustomerClassLibraryWebApp.Controllers
             if (_addressRepository.Read(id) != null)
             {
                 _addressRepository.Update(address);
+            } else
+            {
+                throw new NotFoundException($"Address with {id} not found");
             }
         }
 
@@ -74,8 +104,10 @@ namespace CustomerClassLibraryWebApp.Controllers
             if (_addressRepository.Read(id) != null)
             {
                 _addressRepository.Delete(id);
-            }
-            
+            } else
+            {
+                throw new NotFoundException($"Address with {id} not found");
+            }           
         }
     }
 }

@@ -15,3 +15,4 @@ C:\Doc\projects\CustomerClassLibraryCore\CustomerClassLibraryCore\obj\Debug\nets
 C:\Doc\projects\CustomerClassLibraryCore\CustomerClassLibraryCore\obj\Debug\netstandard2.0\CustomerClassLibraryCore.dll
 C:\Doc\projects\CustomerClassLibraryCore\CustomerClassLibraryCore\obj\Debug\netstandard2.0\CustomerClassLibraryCore.pdb
 C:\Doc\projects\CustomerClassLibraryCore\CustomerClassLibraryCore\obj\Debug\netstandard2.0\CustomerClassLibraryCore.csprojAssemblyReference.cache
+D:\projects\CustomerClassLibraryCore\CustomerClassLibraryCore\obj\Debug\netstandard2.0\CustomerClassLibraryCore.csproj.AssemblyReference.cache

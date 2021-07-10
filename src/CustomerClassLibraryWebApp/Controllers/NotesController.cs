@@ -1,5 +1,6 @@
 ﻿using CustomerClassLibraryCore;
 using CustomerClassLibraryCore.BusinessEntities;
+using CustomerClassLibraryCore.Common;
 using CustomerClassLibraryCore.Data.EFData;
 using CustomerClassLibraryCore.Data.Repositories;
 using CustomerClassLibraryCore.Repositories;
@@ -26,25 +27,39 @@ namespace CustomerClassLibraryWebApp.Controllers
             _noteRepository = noteRepository;
             
         }
-        // GET: api/<NotesController>
-        [HttpGet]
-        public IEnumerable<CustomerNote> Get()
-        {
-            return _noteRepository.ReadAll();
-        }
+        //// GET: api/<NotesController>
+        //[HttpGet]
+        //public ActionResult Get()
+        //{
+        //    return Ok(_noteRepository.ReadAll());
+        //}
 
         // GET api/<NotesController>?customerId=10
-        [HttpGet("{customerId}")]
-        public IEnumerable<CustomerNote> GetAll(int customerId)
+        [HttpGet]
+        public ActionResult GetAll(int customerId)
         {
-            return _noteRepository.ReadAll(customerId);
+            var notes = _noteRepository.ReadAll(customerId);
+            if (notes.Count != 0)
+            {
+                return Ok(notes);
+            } else
+            {
+                throw new NotFoundException($"Customer with id {customerId} not found");
+            }           
         }
 
         // GET api/<NotesController>/5
         [HttpGet("{id}")]
-        public CustomerNote Get(int id)
+        public ActionResult Get(int id)
         {
-            return _noteRepository.Read(id);
+            var note = _noteRepository.Read(id);
+            if (note != null)
+            {
+                return Ok(note);
+            } else
+            {
+                throw new NotFoundException($"Note with {id} not found");
+            }     
         }
 
         // POST api/<NotesController>
@@ -53,8 +68,16 @@ namespace CustomerClassLibraryWebApp.Controllers
         {
             if (_customerRepository.Read(note.CustomerId) != null)
             {
-                _noteRepository.Create(note);
-            }      
+                var noteId = _noteRepository.Create(note);
+                if (noteId == 0)
+                {
+                    throw new Exception("Server error");
+                }
+
+            } else
+            {
+                throw new NotFoundException($"Customer with {note.CustomerId} not found");
+            } 
         }
 
         // PUT api/<NotesController>/5
@@ -64,6 +87,9 @@ namespace CustomerClassLibraryWebApp.Controllers
             if (_noteRepository.Read(id) != null)
             {
                 _noteRepository.Update(note);
+            } else
+            {
+                throw new NotFoundException($"Note with {id} not found");
             }
         }
 
@@ -76,8 +102,10 @@ namespace CustomerClassLibraryWebApp.Controllers
             if (note != null)
             {
                 _noteRepository.Delete(id);
-            }
-           
+            } else
+            {
+                throw new NotFoundException($"Note with {id} not found");
+            }          
         }
     }
 }

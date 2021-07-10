@@ -1,4 +1,5 @@
 ﻿using CustomerClassLibraryCore;
+using CustomerClassLibraryCore.Common;
 using CustomerClassLibraryCore.Data.Repositories;
 using CustomerClassLibraryCore.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -23,23 +24,28 @@ namespace CustomerClassLibraryWebApp.Controllers
         }
         // GET: api/<CustomersController>
         [HttpGet]
-        public IEnumerable<Customer> Get()
+        public ActionResult Get()
         {
-            return _customerRepository.ReadAll();
+            return Ok(_customerRepository.ReadAll());
         }
 
         // GET api/<CustomersController>/5
         [HttpGet("{id}")]
-        public Customer Get(int id)
+        public ActionResult Get(int id)
         {
-            return _customerRepository.Read(id);
+            return Ok(_customerRepository.Read(id));
         }
 
         // POST api/<CustomersController>
         [HttpPost]
         public void Post([FromBody] Customer customer)
         {
-            _customerRepository.Create(customer);
+            int customerId =_customerRepository.Create(customer);
+
+            if (customerId == 0)
+            {
+                throw new Exception("Server error");
+            }
         }
 
         // PUT api/<CustomersController>/5
@@ -51,7 +57,10 @@ namespace CustomerClassLibraryWebApp.Controllers
             if (customerToUpdate != null)
             {
                 _customerRepository.Update(customer);
-            }
+            } else
+            {
+                throw new NotFoundException($"Customer with {id} not found");
+            };
         }
 
         // DELETE api/<CustomersController>/5
@@ -63,8 +72,10 @@ namespace CustomerClassLibraryWebApp.Controllers
             if (customer != null)
             {
                 _customerRepository.Delete(id);
-            }
-            
+            } else
+            {
+                throw new NotFoundException($"Customer with {id} not found");
+            };
         }
     }
 }

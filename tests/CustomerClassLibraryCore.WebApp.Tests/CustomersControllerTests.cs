@@ -45,7 +45,7 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             var controller = new CustomersController(customerRepositoryMock.Object);
             //var customers = controller.Get();
 
-            //Assert.Throws<NotFoundException>(controller.Get());
+            Assert.Throws<NotFoundException>(() => controller.Get());
         }
 
         [Fact]

@@ -1,4 +1,5 @@
-﻿using CustomerClassLibraryCore.Data.Repositories;
+﻿using CustomerClassLibraryCore.Common;
+using CustomerClassLibraryCore.Data.Repositories;
 using CustomerClassLibraryCore.Repositories;
 using CustomerClassLibraryCore.WebApp.Tests.IntegrationTests;
 using CustomerClassLibraryWebApp.Controllers;
@@ -24,13 +25,27 @@ namespace CustomerClassLibraryCore.WebApp.Tests
         [Fact]
         public void ShouldGetAllCustomers()
         {
+            var fixture = new EFCustomerRepositoryFixture();
+            var customer = fixture.MockCustomer();
             var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
-            customerRepositoryMock.Setup(x => x.ReadAll()).Returns(new List<Customer>());
+            customerRepositoryMock.Setup(x => x.ReadAll()).Returns(new List<Customer>() { customer});
 
             var controller = new CustomersController(customerRepositoryMock.Object);
             var customers = controller.Get();
 
             Assert.NotNull(customers);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfThereAreNoCustomers()
+        {
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+            customerRepositoryMock.Setup(x => x.ReadAll()).Returns(new List<Customer>());
+
+            var controller = new CustomersController(customerRepositoryMock.Object);
+            //var customers = controller.Get();
+
+            //Assert.Throws<NotFoundException>(controller.Get());
         }
 
         [Fact]

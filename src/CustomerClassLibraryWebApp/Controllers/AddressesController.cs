@@ -57,7 +57,7 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // GET api/<AddressesController>/5
         [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        public ActionResult<Address> Get(int id)
         {
             var address = _addressRepository.Read(id);
 

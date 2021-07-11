@@ -26,14 +26,30 @@ namespace CustomerClassLibraryWebApp.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            return Ok(_customerRepository.ReadAll());
+            var customers = _customerRepository.ReadAll();
+            if (customers.Count != 0)
+            {
+                return Ok(customers);
+            } else
+            {
+                throw new NotFoundException($"Customers not found");
+            }
+            
         }
 
         // GET api/<CustomersController>/5
         [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        public ActionResult<Customer> Get(int id)
         {
-            return Ok(_customerRepository.Read(id));
+            var customer = _customerRepository.Read(id);
+            if (customer != null)
+            {
+                return Ok(customer);
+            } else
+            {
+                throw new NotFoundException($"Customer with id {id} not found");
+            }
+            
         }
 
         // POST api/<CustomersController>

@@ -50,7 +50,7 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // GET api/<NotesController>/5
         [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        public ActionResult<CustomerNote> Get(int id)
         {
             var note = _noteRepository.Read(id);
             if (note != null)

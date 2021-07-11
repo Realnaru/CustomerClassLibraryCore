@@ -118,12 +118,15 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             };   
 
             noteRepositoryMock.Setup(x => x.Create(note)).Returns(1);
+            noteRepositoryMock.Setup(x => x.Read(1)).Returns(note);
             customerRepositoryMock.Setup(x => x.Read(1)).Returns(customer);
 
             var controller = new NotesController(customerRepositoryMock.Object, noteRepositoryMock.Object);
             controller.Post(note);
+            var fetchedNote = controller.Get(1);
 
-            noteRepositoryMock.Verify(x => x.Create(note), Times.Exactly(1));         
+            noteRepositoryMock.Verify(x => x.Create(note), Times.Exactly(1));
+            //Assert.Equal(note, fetchedNote);
         }
 
         [Fact]
@@ -147,7 +150,10 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             var controller = new NotesController(customerRepositoryMock.Object, noteRepositoryMock.Object);
             controller.Put(1, note);
 
+            var fetchedNote = controller.Get(1);
+
             noteRepositoryMock.Verify(x => x.Update(note), Times.Exactly(1));
+            //Assert.Equal(note, fetchedNote);
         }
 
         [Fact]

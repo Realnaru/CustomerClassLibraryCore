@@ -74,13 +74,19 @@ namespace CustomerClassLibraryWebApp.Controllers
         [HttpPost]
         public void Post([FromBody] Address address)
         {
-            var customerId = _customerRepository.Read(address.CustomerId);
-            if ( customerId != null)
+            var customer = _customerRepository.Read(address.CustomerId);
+            if ( customer != null)
             {
-                _addressRepository.Create(address);
+                int addressId = _addressRepository.Create(address);
+
+                if(addressId == 0)
+                {
+                    throw new Exception("Server error");
+                }
+
             } else
             {
-                throw new NotFoundException($"Customer with {customerId} not found");
+                throw new NotFoundException($"Customer with {address.CustomerId} not found");
             }         
         }
 

@@ -1,4 +1,5 @@
 ﻿using CustomerClassLibraryCore.BusinessEntities;
+using CustomerClassLibraryCore.Common;
 using CustomerClassLibraryCore.Data.EFData;
 using CustomerClassLibraryCore.Data.Repositories;
 using CustomerClassLibraryCore.Repositories;
@@ -100,6 +101,104 @@ namespace CustomerClassLibraryCore.WebApp.Tests
 
             //Assert.Equal(note, notes[0]);
             //Assert.Equal(secondNote, notes[1]);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfThereIsNoNotes()
+        {
+            var noteRepositoryMock = new Mock<IEntityRepository<CustomerNote>>();
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+            noteRepositoryMock.Setup(x => x.ReadAll(1)).Returns(new List<CustomerNote>());
+
+            var controller = new NotesController(customerRepositoryMock.Object, noteRepositoryMock.Object);
+
+            Assert.Throws<NotFoundException>(() => controller.GetAll(1));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfThereIsNoNote()
+        {
+            var noteRepositoryMock = new Mock<IEntityRepository<CustomerNote>>();
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+            noteRepositoryMock.Setup(x => x.Read(1)).Returns((CustomerNote)null);
+
+            var controller = new NotesController(customerRepositoryMock.Object, noteRepositoryMock.Object);
+
+            Assert.Throws<NotFoundException>(() => controller.Get(1));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfNoteIsNotCreated()
+        {
+            var noteRepositoryMock = new Mock<IEntityRepository<CustomerNote>>();
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+
+            var note = new CustomerNote()
+            {
+                CustomerId = 1
+            };
+
+            customerRepositoryMock.Setup(x => x.Read(1)).Returns(new Customer());
+            noteRepositoryMock.Setup(x => x.Create(note)).Returns(0);
+
+            var controller = new NotesController(customerRepositoryMock.Object, noteRepositoryMock.Object);
+
+            Assert.Throws<Exception>(() => controller.Post(note));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfThereIsNoCustomerWithGivenId()
+        {
+            var noteRepositoryMock = new Mock<IEntityRepository<CustomerNote>>();
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+
+            var note = new CustomerNote()
+            {
+                CustomerId = 1
+            };
+
+            customerRepositoryMock.Setup(x => x.Read(1)).Returns((Customer)null);
+            noteRepositoryMock.Setup(x => x.Create(note)).Returns(1);
+
+            var controller = new NotesController(customerRepositoryMock.Object, noteRepositoryMock.Object);
+
+            Assert.Throws<NotFoundException>(() => controller.Post(note));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfThereIsNoNoteToUpdate()
+        {
+            var noteRepositoryMock = new Mock<IEntityRepository<CustomerNote>>();
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+
+            var note = new CustomerNote()
+            {
+                CustomerId = 1
+            };
+
+            noteRepositoryMock.Setup(x => x.Read(1)).Returns((CustomerNote)null);
+
+            var controller = new NotesController(customerRepositoryMock.Object, noteRepositoryMock.Object);
+
+            Assert.Throws<NotFoundException>(() => controller.Put(1, note));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfThereIsNoNoteToDelete()
+        {
+            var noteRepositoryMock = new Mock<IEntityRepository<CustomerNote>>();
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+
+            var note = new CustomerNote()
+            {
+                CustomerId = 1
+            };
+
+            noteRepositoryMock.Setup(x => x.Read(1)).Returns((CustomerNote)null);
+
+            var controller = new NotesController(customerRepositoryMock.Object, noteRepositoryMock.Object);
+
+            Assert.Throws<NotFoundException>(() => controller.Delete(1));
         }
 
         [Fact]

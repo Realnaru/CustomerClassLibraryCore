@@ -43,9 +43,64 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             customerRepositoryMock.Setup(x => x.ReadAll()).Returns(new List<Customer>());
 
             var controller = new CustomersController(customerRepositoryMock.Object);
-            //var customers = controller.Get();
 
             Assert.Throws<NotFoundException>(() => controller.Get());
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfThereAreNoCustomer()
+        {
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+            customerRepositoryMock.Setup(x => x.Read(1)).Returns((Customer)null);
+
+            var controller = new CustomersController(customerRepositoryMock.Object);
+
+            Assert.Throws<NotFoundException>(() => controller.Get(1));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfCustomerIsNotCreated()
+        {
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+            var fixture = new EFCustomerRepositoryFixture();
+
+            var customer = fixture.MockCustomer();
+
+            customerRepositoryMock.Setup(x => x.Create(customer)).Returns(0);
+
+            var controller = new CustomersController(customerRepositoryMock.Object);
+
+            Assert.Throws<Exception>(() => controller.Post(customer));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfThereIsNoCustomerToUpdate()
+        {
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+            var fixture = new EFCustomerRepositoryFixture();
+
+            var customer = fixture.MockCustomer();
+
+            customerRepositoryMock.Setup(x => x.Read(1)).Returns((Customer)null);
+
+            var controller = new CustomersController(customerRepositoryMock.Object);
+
+            Assert.Throws<NotFoundException>(() => controller.Put(1, customer));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfThereIsNoCustomerToDelete()
+        {
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+            var fixture = new EFCustomerRepositoryFixture();
+
+            var customer = fixture.MockCustomer();
+
+            customerRepositoryMock.Setup(x => x.Read(1)).Returns((Customer)null);
+
+            var controller = new CustomersController(customerRepositoryMock.Object);
+
+            Assert.Throws<NotFoundException>(() => controller.Delete(1));
         }
 
         [Fact]

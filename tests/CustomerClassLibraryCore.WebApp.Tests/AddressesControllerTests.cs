@@ -1,4 +1,5 @@
 ﻿using CustomerClassLibraryCore.BusinessEntities;
+using CustomerClassLibraryCore.Common;
 using CustomerClassLibraryCore.Data.EFData;
 using CustomerClassLibraryCore.Data.Repositories;
 using CustomerClassLibraryCore.Repositories;
@@ -36,7 +37,7 @@ namespace CustomerClassLibraryCore.WebApp.Tests
         //    var secondAddress = fixture.MockAddress();
 
         //    addreessRepositoryMock.Setup(x => x.ReadAll()).Returns(new List<Address>() { address, secondAddress });
-           
+
         //    var addresses = controler.Get();
 
         //    Assert.Equal(address, addresses.ToList()[0]);
@@ -83,6 +84,96 @@ namespace CustomerClassLibraryCore.WebApp.Tests
         }
 
         [Fact]
+        public void ShouldThrowExceptionIfThereIsNoAddresses()
+        {
+            var addreessRepositoryMock = new Mock<IEntityRepository<Address>>();
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+            var controler = new AddressesController(addreessRepositoryMock.Object, customerRepositoryMock.Object);
+            addreessRepositoryMock.Setup(x => x.ReadAll(1)).Returns(new List<Address>());
+
+            Assert.Throws<NotFoundException>(() => controler.GetAll(1));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfThereIsNoAddressWithGivenId()
+        {
+            var addreessRepositoryMock = new Mock<IEntityRepository<Address>>();
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+            var controler = new AddressesController(addreessRepositoryMock.Object, customerRepositoryMock.Object);
+            addreessRepositoryMock.Setup(x => x.Read(1)).Returns((Address)null);
+
+            Assert.Throws<NotFoundException>(() => controler.Get(1));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfThereIsNoCustomerWithGivenId()
+        {
+            var addreessRepositoryMock = new Mock<IEntityRepository<Address>>();
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+            var controler = new AddressesController(addreessRepositoryMock.Object, customerRepositoryMock.Object);
+
+            var fixture = new EFAddressRepositoryFixture();
+            var address = fixture.MockAddress();
+            address.CustomerId = 1;
+
+            customerRepositoryMock.Setup(x => x.Read(1)).Returns((Customer)null);
+
+            Assert.Throws<NotFoundException>(() => controler.Post(address));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfAddressIsNotCreated()
+        {
+            var addreessRepositoryMock = new Mock<IEntityRepository<Address>>();
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+
+            var fixture = new EFAddressRepositoryFixture();
+            var address = fixture.MockAddress();
+            address.CustomerId = 1;
+
+            var customerFixture = new EFCustomerRepositoryFixture();
+            var customer = customerFixture.MockCustomer();
+
+            addreessRepositoryMock.Setup(x => x.Create(address)).Returns(0);
+            customerRepositoryMock.Setup(x => x.Read(1)).Returns(customer);
+
+            var controler = new AddressesController(addreessRepositoryMock.Object, customerRepositoryMock.Object);
+           
+            Assert.Throws<Exception>(() => controler.Post(address));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfThereIsNoAddressToUpdate()
+        {
+            var addreessRepositoryMock = new Mock<IEntityRepository<Address>>();
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+            var controler = new AddressesController(addreessRepositoryMock.Object, customerRepositoryMock.Object);
+
+            var fixture = new EFAddressRepositoryFixture();
+            var address = fixture.MockAddress();
+
+            addreessRepositoryMock.Setup(x => x.Read(1)).Returns((Address)null);
+
+            Assert.Throws<NotFoundException>(() => controler.Put(1, address));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfThereIsNoAddressToDelete()
+        {
+            var addreessRepositoryMock = new Mock<IEntityRepository<Address>>();
+            var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
+            var controler = new AddressesController(addreessRepositoryMock.Object, customerRepositoryMock.Object);
+
+            var fixture = new EFAddressRepositoryFixture();
+           
+            addreessRepositoryMock.Setup(x => x.Read(1)).Returns((Address)null);
+
+            Assert.Throws<NotFoundException>(() => controler.Delete(1));
+        }
+
+
+
+        [Fact]
         public void ShouldBeAbleToCreateAddress()
         {
             var fixture = new EFAddressRepositoryFixture();
@@ -97,6 +188,7 @@ namespace CustomerClassLibraryCore.WebApp.Tests
 
             customerRepositoryMock.Setup(x => x.Read(1)).Returns(customer);
             addreessRepositoryMock.Setup(x => x.Read(1)).Returns(address);
+            addreessRepositoryMock.Setup(x => x.Create(address)).Returns(1);
 
             controler.Post(address);
             var createdAddress = controler.Get(1);

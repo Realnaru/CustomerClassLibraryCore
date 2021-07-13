@@ -50,7 +50,7 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // GET api/<NotesController>/5
         [HttpGet("{id}")]
-        public ActionResult<CustomerNote> Get(int id)
+        public ActionResult Get(int id)
         {
             var note = _noteRepository.Read(id);
             if (note != null)
@@ -64,7 +64,7 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // POST api/<NotesController>
         [HttpPost]
-        public void Post([FromBody] CustomerNote note)
+        public IActionResult Post([FromBody] CustomerNote note)
         {
             if (_customerRepository.Read(note.CustomerId) != null)
             {
@@ -73,6 +73,7 @@ namespace CustomerClassLibraryWebApp.Controllers
                 {
                     throw new Exception("Server error");
                 }
+                return Ok();
 
             } else
             {
@@ -82,11 +83,13 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // PUT api/<NotesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] CustomerNote note)
+        public IActionResult Put(int id, [FromBody] CustomerNote note)
         {
             if (_noteRepository.Read(id) != null)
             {
                 _noteRepository.Update(note);
+                return NoContent();
+
             } else
             {
                 throw new NotFoundException($"Note with {id} not found");
@@ -95,13 +98,14 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // DELETE api/<NotesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             var note =_noteRepository.Read(id);
 
             if (note != null)
             {
                 _noteRepository.Delete(id);
+                return NoContent();
             } else
             {
                 throw new NotFoundException($"Note with {id} not found");

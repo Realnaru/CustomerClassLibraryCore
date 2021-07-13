@@ -57,7 +57,7 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // GET api/<AddressesController>/5
         [HttpGet("{id}")]
-        public ActionResult<Address> Get(int id)
+        public ActionResult Get(int id)
         {
             var address = _addressRepository.Read(id);
 
@@ -72,7 +72,7 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // POST api/<AddressesController>
         [HttpPost]
-        public void Post([FromBody] Address address)
+        public IActionResult Post([FromBody] Address address)
         {
             var customer = _customerRepository.Read(address.CustomerId);
             if ( customer != null)
@@ -84,6 +84,8 @@ namespace CustomerClassLibraryWebApp.Controllers
                     throw new Exception("Server error");
                 }
 
+                return Ok();
+
             } else
             {
                 throw new NotFoundException($"Customer with {address.CustomerId} not found");
@@ -92,11 +94,13 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // PUT api/<AddressesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Address address)
+        public IActionResult Put(int id, [FromBody] Address address)
         {
             if (_addressRepository.Read(id) != null)
             {
                 _addressRepository.Update(address);
+                return NoContent();
+
             } else
             {
                 throw new NotFoundException($"Address with {id} not found");
@@ -105,11 +109,13 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // DELETE api/<AddressesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             if (_addressRepository.Read(id) != null)
             {
                 _addressRepository.Delete(id);
+                return NoContent();
+
             } else
             {
                 throw new NotFoundException($"Address with {id} not found");

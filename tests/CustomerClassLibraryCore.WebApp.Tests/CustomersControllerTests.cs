@@ -3,6 +3,7 @@ using CustomerClassLibraryCore.Data.Repositories;
 using CustomerClassLibraryCore.Repositories;
 using CustomerClassLibraryCore.WebApp.Tests.IntegrationTests;
 using CustomerClassLibraryWebApp.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -27,13 +28,24 @@ namespace CustomerClassLibraryCore.WebApp.Tests
         {
             var fixture = new EFCustomerRepositoryFixture();
             var customer = fixture.MockCustomer();
+
+            var expectedResult = new List<Customer>()
+            { 
+                new Customer(),
+                new Customer()
+            };
+
             var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
-            customerRepositoryMock.Setup(x => x.ReadAll()).Returns(new List<Customer>() { customer});
+            customerRepositoryMock.Setup(x => x.ReadAll()).Returns(expectedResult);
 
             var controller = new CustomersController(customerRepositoryMock.Object);
             var customers = controller.Get();
 
             Assert.NotNull(customers);
+            Assert.IsType<OkObjectResult>(customers);
+
+            var actualList = ((OkObjectResult)(customers)).Value as List<Customer>;     
+            Assert.Equal(expectedResult, actualList);
         }
 
         [Fact]
@@ -116,7 +128,11 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             var fetchedCustomer = controller.Get(1);
 
             Assert.NotNull(fetchedCustomer);
-            //Assert.Equal(customer, fetchedCustomer);
+            Assert.IsType<OkObjectResult>(fetchedCustomer);
+
+            var actualCustomer = ((OkObjectResult)fetchedCustomer).Value as Customer;
+            
+            Assert.Equal(customer, actualCustomer);
         }
 
         [Fact]
@@ -135,7 +151,7 @@ namespace CustomerClassLibraryCore.WebApp.Tests
 
             customerRepositoryMock.Verify(x => x.Create(customer), Times.Exactly(1));
             Assert.NotNull(fetchedCustomer);
-            //Assert.Equal(customer, fetchedCustomer);
+            Assert.IsType<OkObjectResult>(fetchedCustomer);
         }
 
         [Fact]
@@ -148,11 +164,11 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             customerRepositoryMock.Setup(x => x.Read(1)).Returns(customer);
 
             var controller = new CustomersController(customerRepositoryMock.Object);
-            controller.Put(1, customer);
+            var result = controller.Put(1, customer);
             var fetchedCustomer = controller.Get(1);
 
             Assert.NotNull(fetchedCustomer);
-            //Assert.Equal(customer, fetchedCustomer);
+            Assert.IsType<NoContentResult>(result);
         }
 
         [Fact]
@@ -166,9 +182,11 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             customerRepositoryMock.Setup(x => x.Read(1)).Returns(customer);
 
             var controller = new CustomersController(customerRepositoryMock.Object);
-            controller.Delete(1);
+            var result = controller.Delete(1);
+
             customerRepositoryMock.Verify(x => x.Read(1), Times.Exactly(1));
             customerRepositoryMock.Verify(x => x.Delete(1), Times.Exactly(1));
+            Assert.IsType<NoContentResult>(result);
         }
     }
 

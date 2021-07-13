@@ -39,7 +39,7 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // GET api/<CustomersController>/5
         [HttpGet("{id}")]
-        public ActionResult<Customer> Get(int id)
+        public ActionResult Get(int id)
         {
             var customer = _customerRepository.Read(id);
             if (customer != null)
@@ -54,7 +54,7 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // POST api/<CustomersController>
         [HttpPost]
-        public void Post([FromBody] Customer customer)
+        public IActionResult Post([FromBody] Customer customer)
         {
             int customerId =_customerRepository.Create(customer);
 
@@ -62,17 +62,20 @@ namespace CustomerClassLibraryWebApp.Controllers
             {
                 throw new Exception("Server error");
             }
+            return Ok();
         }
 
         // PUT api/<CustomersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Customer customer)
+        public IActionResult Put(int id, [FromBody] Customer customer)
         {
             var customerToUpdate = _customerRepository.Read(id);
 
             if (customerToUpdate != null)
             {
                 _customerRepository.Update(customer);
+                return NoContent();
+
             } else
             {
                 throw new NotFoundException($"Customer with {id} not found");
@@ -81,13 +84,15 @@ namespace CustomerClassLibraryWebApp.Controllers
 
         // DELETE api/<CustomersController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             var customer = _customerRepository.Read(id);
 
             if (customer != null)
             {
                 _customerRepository.Delete(id);
+                return NoContent();
+
             } else
             {
                 throw new NotFoundException($"Customer with {id} not found");

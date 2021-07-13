@@ -59,7 +59,10 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             var fetchedAddress = controler.Get(1);
 
             addreessRepositoryMock.Verify(x => x.Read(1), Times.Exactly(1));
-            //Assert.Equal(address, fetchedAddress);         
+            Assert.IsType<OkObjectResult>(fetchedAddress);
+
+            var actualAddress = ((OkObjectResult)fetchedAddress).Value as Address;
+            Assert.Equal(address, actualAddress);         
         }
 
         [Fact]
@@ -73,14 +76,22 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             var address = fixture.MockAddress();
             var secondAddress = fixture.MockAddress();
 
-            addreessRepositoryMock.Setup(x => x.ReadAll(1)).Returns(new List<Address>() { address, secondAddress });
+            var expectedResult = new List<Address>()
+            {
+                address,
+                secondAddress
+            };
+
+            addreessRepositoryMock.Setup(x => x.ReadAll(1)).Returns(expectedResult);
 
             var addresses = controler.GetAll(1);
 
             Assert.NotNull(addresses);
+            Assert.IsType<OkObjectResult>(addresses);
 
-            //Assert.Equal(address, addresses.ToList()[0]);
-            //Assert.Equal(secondAddress, addresses.ToList()[1]);
+            var actualAddresses = ((OkObjectResult)addresses).Value as List<Address>;
+
+           Assert.Equal(expectedResult, actualAddresses);  
         }
 
         [Fact]
@@ -171,8 +182,6 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             Assert.Throws<NotFoundException>(() => controler.Delete(1));
         }
 
-
-
         [Fact]
         public void ShouldBeAbleToCreateAddress()
         {
@@ -190,11 +199,12 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             addreessRepositoryMock.Setup(x => x.Read(1)).Returns(address);
             addreessRepositoryMock.Setup(x => x.Create(address)).Returns(1);
 
-            controler.Post(address);
+            var result = controler.Post(address);
             var createdAddress = controler.Get(1);
 
             addreessRepositoryMock.Verify(x => x.Create(address), Times.Exactly(1));
-            //Assert.Equal(address, createdAddress);        
+
+            Assert.IsType<OkResult>(result);
         }
 
         [Fact]
@@ -210,10 +220,12 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             addreessRepositoryMock.Setup(x => x.Read(1)).Returns(address);
             addreessRepositoryMock.Setup(x => x.Update(address));
 
-            controler.Put(1, address);
+            var result = controler.Put(1, address);
             var udatedAddress = controler.Get(1);
 
-            addreessRepositoryMock.Verify(x => x.Update(address), Times.Exactly(1));          
+            addreessRepositoryMock.Verify(x => x.Update(address), Times.Exactly(1));
+
+            Assert.IsType<NoContentResult>(result);
         }
 
         [Fact]
@@ -229,10 +241,12 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             addreessRepositoryMock.Setup(x => x.Read(1)).Returns(address);
             addreessRepositoryMock.Setup(x => x.Delete(1));
 
-            controler.Delete(1);
+            var result = controler.Delete(1);
 
             addreessRepositoryMock.Verify(x => x.Read(1), Times.Exactly(1));
             addreessRepositoryMock.Verify(x => x.Delete(1), Times.Exactly(1));
+
+            Assert.IsType<NoContentResult>(result);
         }
     }
 }

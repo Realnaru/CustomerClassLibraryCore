@@ -5,6 +5,7 @@ using CustomerClassLibraryCore.Data.Repositories;
 using CustomerClassLibraryCore.Repositories;
 using CustomerClassLibraryCore.WebApp.Tests.IntegrationTests;
 using CustomerClassLibraryWebApp.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -59,19 +60,23 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             var noteRepositoryMock = new Mock<IEntityRepository<CustomerNote>>();
             var customerRepositoryMock = new Mock<IEntityRepository<Customer>>();
 
-            var note = new CustomerNote()
+            var expectedNote = new CustomerNote()
             {
                 CustomerId = 1,
                 Note = "Kitty Ipsum"
             };
 
-            noteRepositoryMock.Setup(x => x.Read(1)).Returns(note);
+            noteRepositoryMock.Setup(x => x.Read(1)).Returns(expectedNote);
 
             var controller = new NotesController(customerRepositoryMock.Object, noteRepositoryMock.Object);
 
             var fetchedNote = controller.Get(1);
 
-            Assert.NotNull(fetchedNote);           
+            Assert.NotNull(fetchedNote);
+            Assert.IsType<OkObjectResult>(fetchedNote);
+
+            var actualNote = ((OkObjectResult)fetchedNote).Value as CustomerNote;
+            Assert.Equal(expectedNote, actualNote);
         }
 
         [Fact]
@@ -92,15 +97,22 @@ namespace CustomerClassLibraryCore.WebApp.Tests
                 Note = "Kitty Ipsum"
             };
 
-            noteRepositoryMock.Setup(x => x.ReadAll(1)).Returns(new List<CustomerNote>() { note, secondNote });
+            var expectedNotes = new List<CustomerNote>()
+            {
+                note,
+                secondNote
+            };
+
+            noteRepositoryMock.Setup(x => x.ReadAll(1)).Returns(expectedNotes);
 
             var controller = new NotesController(customerRepositoryMock.Object, noteRepositoryMock.Object);
 
             var notes = controller.GetAll(1);
             Assert.NotNull(notes);
+            Assert.IsType<OkObjectResult>(notes);
 
-            //Assert.Equal(note, notes[0]);
-            //Assert.Equal(secondNote, notes[1]);
+            var actualNotes = ((OkObjectResult)notes).Value as List<CustomerNote>;
+            Assert.Equal(expectedNotes, actualNotes);
         }
 
         [Fact]
@@ -221,11 +233,11 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             customerRepositoryMock.Setup(x => x.Read(1)).Returns(customer);
 
             var controller = new NotesController(customerRepositoryMock.Object, noteRepositoryMock.Object);
-            controller.Post(note);
+            var result = controller.Post(note);
             var fetchedNote = controller.Get(1);
 
             noteRepositoryMock.Verify(x => x.Create(note), Times.Exactly(1));
-            //Assert.Equal(note, fetchedNote);
+            Assert.IsType<OkResult>(result);
         }
 
         [Fact]
@@ -247,12 +259,12 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             noteRepositoryMock.Setup(x => x.Update(note));
             
             var controller = new NotesController(customerRepositoryMock.Object, noteRepositoryMock.Object);
-            controller.Put(1, note);
+            var result = controller.Put(1, note);
 
             var fetchedNote = controller.Get(1);
 
             noteRepositoryMock.Verify(x => x.Update(note), Times.Exactly(1));
-            //Assert.Equal(note, fetchedNote);
+            Assert.IsType<NoContentResult>(result);
         }
 
         [Fact]
@@ -274,9 +286,10 @@ namespace CustomerClassLibraryCore.WebApp.Tests
             noteRepositoryMock.Setup(x => x.Delete(1));
 
             var controller = new NotesController(customerRepositoryMock.Object, noteRepositoryMock.Object);
-            controller.Delete(1);
+            var result = controller.Delete(1);
 
             noteRepositoryMock.Verify(x => x.Delete(1), Times.Exactly(1));
+            Assert.IsType<NoContentResult>(result);
         }
     }
 }
